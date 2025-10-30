@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>E-Waste Awareness Hub — Recycle Today, Save Tomorrow</title>
+  <meta name="description" content="Educate the community about safe electronic waste disposal and how to get involved locally." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ---------- Variables ---------- */
+    :root{
+      --bg:#0f1724; --card:#0b1220; --muted:#f5f7fb; --accent:#2e8b57; --accent-2:#00a3ff; --glass:rgba(255,255,255,0.04);
+      --maxw:1200px; --radius:14px; --ease:cubic-bezier(.2,.9,.3,1);
+      --h1:clamp(1.6rem,4vw,2.6rem); --h2:clamp(1.2rem,2.6vw,1.6rem); --txt:clamp(.95rem,1.6vw,1rem);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;}
+    body{margin:0;font-family:'Inter',system-ui,Segoe UI,Roboto,Arial;color:var(--muted);background:linear-gradient(180deg,#071025 0%, #081026 60%);-webkit-font-smoothing:antialiased;}
+    a{color:var(--accent-2);text-decoration:none}
+
+    /* ---------- Layout ---------- */
+    .wrap{max-width:var(--maxw);margin:0 auto;padding:1.25rem}
+    header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(8,10,18,0.6),rgba(8,10,18,0.25));backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,0.03)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.75rem 0}
+    .brand{display:flex;gap:.75rem;align-items:center}
+    .logo{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'Montserrat',sans-serif;color:#fff;box-shadow:0 6px 20px rgba(2,8,15,.45)}
+    nav ul{display:flex;gap:.5rem;list-style:none;margin:0;padding:0}
+    nav li{display:inline}
+    nav a{padding:.5rem .75rem;border-radius:10px;font-weight:600;color:rgba(255,255,255,.85)}
+    nav a:hover, nav a:focus{background:rgba(255,255,255,0.03);transform:translateY(-2px)}
+
+    /* ---------- Hero ---------- */
+    .hero{display:grid;grid-template-columns:1fr;gap:1rem;align-items:center;padding:2.2rem 0}
+    .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));padding:1.6rem;border-radius:16px;box-shadow:0 20px 50px rgba(2,8,15,0.6);display:flex;flex-direction:column;gap:1rem}
+    .kicker{display:inline-block;background:rgba(255,255,255,0.04);padding:.35rem .6rem;border-radius:999px;font-weight:700;color:var(--accent);font-size:.85rem}
+    h1{font-family:'Montserrat',sans-serif;font-size:var(--h1);line-height:1.02;margin:0;color:#fff}
+    p.lead{margin:0;color:rgba(255,255,255,.8);font-size:var(--txt)}
+    .hero-cta{display:flex;gap:.6rem;align-items:center}
+    .btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#fff;padding:.75rem 1rem;border-radius:12px;border:0;font-weight:700;cursor:pointer;box-shadow:0 10px 28px rgba(46,139,87,0.12);transition:transform .25s var(--ease)}
+    .btn.secondary{background:transparent;border:1px solid rgba(255,255,255,0.06)}
+    .btn:hover{transform:translateY(-4px)}
+
+    /* animated hero visual */
+    .visual{position:relative;min-height:220px;border-radius:12px;overflow:hidden}
+    .visual .bg{position:absolute;inset:0;background:radial-gradient(circle at 20% 30%, rgba(0,163,255,0.06), transparent 20%), linear-gradient(180deg, rgba(46,139,87,0.06), transparent 40%)}
+    .visual img{width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.02);transition:transform 12s linear;filter:brightness(.95);}
+    .visual:hover img{transform:scale(1.06)}
+
+    /* ---------- Grid layout ---------- */
+    .two-col{display:grid;grid-template-columns:1fr;gap:1rem;margin-top:1.1rem}
+    .card{background:var(--card);padding:1rem;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    h2{font-size:var(--h2);margin:0 0 .6rem;color:#fff}
+    small{color:rgba(255,255,255,.6)}
+
+    /* facts grid */
+    .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1rem}
+    .fact{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);padding:1rem;border-radius:12px;text-align:left;display:flex;gap:.85rem;align-items:center}
+    .fact svg{width:44px;height:44px;flex:0 0 44px}
+    .fact .n{font-weight:800;font-size:1.3rem;color:var(--accent)}
+    .fact p{margin:0;color:rgba(255,255,255,.85)}
+
+    /* centers grid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+    .center-card{padding:1rem;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03)}
+    .center-card h3{margin:.35rem 0;color:var(--accent-2)}
+    .center-card p{margin:0 0 .5rem;color:rgba(255,255,255,.8)}
+
+    /* animations */
+    .fade-in{opacity:0;transform:translateY(12px);animation:reveal .7s forwards .2s}
+    @keyframes reveal{to{opacity:1;transform:none}}
+    .pulse{animation:pulse 2.4s infinite}
+    @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
+
+    /* video modal */
+    .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(2,6,23,0.7);z-index:60;opacity:0;pointer-events:none;transition:opacity .25s}
+    .modal.open{opacity:1;pointer-events:auto}
+    .modal .inner{width:min(900px,95%);background:#000;border-radius:12px;padding:.6rem}
+    .modal iframe{width:100%;height:520px;border:0;border-radius:8px}
+
+    /* footer */
+    footer{margin-top:2rem;padding:1.25rem 0;border-top:1px solid rgba(255,255,255,0.03)}
+    .foot-grid{display:grid;grid-template-columns:1fr;gap:1rem;align-items:start}
+    .social a{margin-right:.6rem;color:var(--muted)}
+
+    /* responsive rules */
+    @media(min-width:880px){
+      .hero{grid-template-columns:1fr 520px}
+      .two-col{grid-template-columns:2fr 1fr}
+      .wrap{padding:2rem}
+      .modal .inner{height:fit-content}
+    }
+
+    @media(max-width:520px){
+      nav ul{display:none}
+      .nav{gap:.5rem}
+      .logo{width:44px;height:44px}
+      .hero{padding:1rem 0}
+      .visual{min-height:160px}
+      .modal iframe{height:240px}
+    }
+
+    /* accessibility focus */
+    a:focus, button:focus{outline:3px solid rgba(0,163,255,0.18);outline-offset:3px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="logo" aria-hidden>EW</div>
+        <div>
+          <div style="font-weight:700;color:#fff">E-Waste Awareness Hub</div>
+          <div style="font-size:.85rem;color:rgba(255,255,255,0.6)">Recycle Today — Save Tomorrow</div>
+        </div>
+      </div>
+      <nav aria-label="primary navigation">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#how">How to Recycle</a></li>
+          <li><a href="#centers">Recycling Centers</a></li>
+          <li><a href="#resources">Resources</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap" id="home">
+    <section class="hero">
+      <div class="hero-card fade-in">
+        <span class="kicker">Community Project</span>
+        <h1>Don't Trash It — Recycle It!</h1>
+        <p class="lead">Join our group to reduce electronic waste, protect local ecosystems, and safely recycle old devices. Find drop-off points, volunteer, and learn how to safely handle electronics — all in one place.</p>
+        <div class="hero-cta">
+          <button class="btn" onclick="document.getElementById('centers').scrollIntoView({behavior:'smooth'})">Find Recycling Centers</button>
+          <button class="btn secondary" onclick="openModal()">Watch: Why E-Waste Matters</button>
+        </div>
+        <div style="display:flex;gap:.8rem;margin-top:1rem;align-items:center">
+          <div style="background:var(--glass);padding:.55rem;border-radius:10px;display:flex;gap:.5rem;align-items:center">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M12 2v6" stroke="#9ee6c2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.2 6.2a9 9 0 1 0 11.6 11.6" stroke="#9ee6c2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div style="font-size:.95rem"><strong>50+</strong><div style="font-size:.78rem;color:rgba(255,255,255,0.6)">Local partners</div></div>
+          </div>
+          <div style="background:var(--glass);padding:.55rem;border-radius:10px;display:flex;gap:.5rem;align-items:center">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden><path d="M3 12h18" stroke="#c7f0ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 3v18" stroke="#c7f0ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div style="font-size:.95rem"><strong>Free resources</strong><div style="font-size:.78rem;color:rgba(255,255,255,0.6)">Guides & videos</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="visual card pulse" aria-hidden style="min-height:240px">
+        <div class="bg"></div>
+        <!-- Replace src with your generated hero illustration -->
+        <img src="wasted.png" alt="Illustration: person placing old monitor in recycling bin with globe and recycling symbol">
+      </div>
+    </section>
+
+    <section id="about" class="two-col">
+      <div class="card fade-in">
+        <h2>About E-Waste</h2>
+        <p>Electronic waste (e-waste) is any discarded electrical or electronic device. When not handled properly, e-waste releases hazardous substances like lead, mercury, and brominated flame retardants that pollute soil and water and pose health risks to communities — especially informal recyclers.</p>
+
+        <h3 style="margin-top:.8rem">Key definitions</h3>
+        <ul style="margin:0;padding-left:1.05rem;color:rgba(255,255,255,.85)">
+          <li><strong>WEEE:</strong> Waste Electrical and Electronic Equipment.</li>
+          <li><strong>Take-back:</strong> Manufacturer or retailer programs for returning old devices.</li>
+        </ul>
+
+        <div class="facts" style="margin-top:1rem">
+          <div class="fact" aria-hidden>
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2v6" stroke="#89f0c3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.2 6.2a9 9 0 1 0 11.6 11.6" stroke="#89f0c3" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div>
+              <div class="n">50M+</div>
+              <p>Estimated tonnes of e-waste generated globally each year (replace with latest stat from Global E-waste Monitor).</p>
+            </div>
+          </div>
+
+          <div class="fact">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 12h18" stroke="#9ee6c2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div>
+              <div class="n"><span style="color:var(--accent-2)">#</span>Recycle</div>
+              <p>Only a small portion of global e-waste is formally recycled — we can change that with proper systems.</p>
+            </div>
+          </div>
+
+          <div class="fact">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l4 6h-8l4-6z" stroke="#c7f0ff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <div>
+              <div class="n">Safe Data</div>
+              <p>Always back up and securely erase personal data before recycling devices.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="card fade-in">
+        <h2>Why It Matters</h2>
+        <p><strong>Health:</strong> Exposure to toxins causes respiratory issues and neurological damage. <strong>Environment:</strong> E-waste contaminates water and soil, harming food systems.</p>
+        <h3 style="margin-top:.65rem">Real-world sources</h3>
+        <ul style="margin:0;padding-left:1.05rem;color:rgba(255,255,255,.8)">
+          <li><a href="https://www.bocra.org.bw/sites/default/files/documents/workshop%20report%20e-waste%20management%20final.pdf" target="_blank" rel="noopener">Bocra Environment Programme</a></li>
+          <li><a href="https://www.who.int/" target="_blank" rel="noopener">World Health Organization</a></li>
+          <li><a href="https://globalewastemonitor.org/" target="_blank" rel="noopener">Global E-waste Monitor (UNU)</a></li>
+        </ul>
+      </aside>
+    </section>
+
+    <section id="how" class="card fade-in">
+      <h2>How to Recycle Electronics — Step by Step</h2>
+      <ol>
+        <li><strong>Identify:</strong> Separate batteries and hazardous parts from the device.</li>
+        <li><strong>Secure:</strong> Back up and wipe personal data using device reset or certified data destruction.</li>
+        <li><strong>Locate:</strong> Use local recycling centers, manufacturer take-back, or certified e-waste events.</li>
+        <li><strong>Drop-off:</strong> Package broken devices safely and deliver them to approved points.</li>
+      </ol>
+      <p style="font-size:.95rem;color:rgba(255,255,255,.8);margin-top:.8rem">Helpful links: <a href="https://earth911.com/" target="_blank" rel="noopener">Earth911</a>, <a href="https://www.epa.gov/recycle" target="_blank" rel="noopener">US EPA — Recycling</a></p>
+    </section>
+
+    <section id="centers" class="card">
+      <h2>Recycling Centers & Drives</h2>
+      <p style="color:rgba(255,255,255,.8)">Below are sample local partners and certified collection points — replace with your city's exact addresses and photos.</p>
+      <div class="grid" style="margin-top:1rem">
+        <div class="center-card">
+          <h3>GreenTech Recycling</h3>
+          <p>Accepts phones, laptops, batteries. Certified data destruction available.</p>
+          <p style="font-size:.9rem;color:rgba(255,255,255,.6)">Mon–Fri 08:00–17:00</p>
+          <p><a href="#" style="color:var(--accent-2)">View on map</a></p>
+        </div>
+        <div class="center-card">
+          <h3>EcoDrop Community Hub</h3>
+          <p>Monthly collection drives and student volunteer programs.</p>
+          <p style="font-size:.9rem;color:rgba(255,255,255,.6)">Events last Saturday</p>
+          <p><a href="#">Volunteer</a></p>
+        </div>
+        <div class="center-card">
+          <h3>Manufacturer Take-Back</h3>
+          <p>Many manufacturers offer free take-back. Check brand websites for details.</p>
+          <p style="font-size:.9rem;color:rgba(255,255,255,.6)">Service varies by brand</p>
+          <p><a href="#">Learn more</a></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="resources" class="two-col">
+      <div class="card fade-in">
+        <h2>Resources & Guides</h2>
+        <p style="color:rgba(255,255,255,.85)">Authoritative resources to cite in your project and to learn more:</p>
+        <ul style="padding-left:1.05rem;color:rgba(255,255,255,.8)">
+          <li><a href="https://www.unep.org/resources/report/global-e-waste-monitor-2020" target="_blank" rel="noopener">Global E-waste Monitor (UNEP / UNU)</a></li>
+          <li><a href="https://www.who.int/news-room/fact-sheets/detail/electronic-waste-(e-waste)" target="_blank" rel="noopener">WHO — E-waste and health</a></li>
+          <li><a href="https://earth911.com/" target="_blank" rel="noopener">Earth911 — Find recycling near you</a></li>
+          <li><a href="https://www.epa.gov/recycle" target="_blank" rel="noopener">EPA — Recycling basics</a></li>
+        </ul>
+      </div>
+
+      <aside class="card fade-in">
+        <h2>Multimedia</h2>
+        <p style="color:rgba(255,255,255,.8)">Watch short explainers and embed your own videos here.</p>
+        <div style="aspect-ratio:16/9;background:#000;border-radius:8px;overflow:hidden;display:flex;align-items:center;justify-content:center">
+          <button class="btn" onclick="openModal()">Play: Why E-Waste Matters</button>
+        </div>
+      </aside>
+    </section>
+
+    <section id="contact" class="card fade-in">
+      <h2>Contact & Get Involved</h2>
+      <p style="color:rgba(255,255,255,.8)">Want to host a drive or partner with us? Contact the project lead or sign up to volunteer.</p>
+      <form onsubmit="event.preventDefault(); alert('Demo: form would submit to Google Forms or server endpoint');" style="display:grid;gap:.6rem;margin-top:.8rem">
+        <input aria-label="Your name" placeholder="Full name" style="padding:.7rem;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--muted)" required>
+        <input aria-label="Email" placeholder="Email" type="email" style="padding:.7rem;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--muted)" required>
+        <select style="padding:.7rem;border-radius:8px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--muted)">
+          <option>Volunteer to organize</option>
+          <option>Host a collection point</option>
+          <option>Share resources</option>
+        </select>
+        <button class="btn">Sign Up</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot-grid">
+      <div style="display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:center">
+        <div>
+          <strong style="font-size:1.05rem">E-Waste Awareness Hub</strong>
+          <div style="color:rgba(255,255,255,.6);font-size:.9rem">Group members: [Student 1 (ID), Student 2 (ID), ...] | Instructor: [Name]</div>
+        </div>
+        <div style="text-align:right">
+          <div style="color:rgba(255,255,255,.6);font-size:.9rem">References: <a href="#resources">Resources</a> • <a href="#home">Top</a></div>
+        </div>
+      </div>
+      <div style="display:flex;gap:.5rem;align-items:center">
+        <small style="color:rgba(255,255,255,.6)">© <span id="yr"></span> E-Waste Awareness Project</small>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Video modal -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <div class="inner" role="dialog" aria-modal="true" aria-label="E-waste video">
+      <button style="background:transparent;border:0;color:#fff;font-weight:700;padding:.4rem;margin-bottom:.4rem;cursor:pointer" onclick="closeModal()">Close ✕</button>
+      <iframe src="e-waste.mp4" title="Why e-waste matters" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // small helpers
+    document.getElementById('yr').textContent = new Date().getFullYear();
+    function openModal(){document.getElementById('modal').classList.add('open');document.getElementById('modal').setAttribute('aria-hidden','false');}
+    function closeModal(){document.getElementById('modal').classList.remove('open');document.getElementById('modal').setAttribute('aria-hidden','true');}
+    // keyboard support for modal
+    document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeModal()}});
+  </script>
+</body>
+</html>
